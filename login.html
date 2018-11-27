@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
      <meta charset="UTF-8">
-     <link rel="stylesheet" href="estilo/estilo.css">
-     <title>Blog api</title>
+     <link rel="stylesheet" href="assets/estilo.css">
+     <!-- <link rel="stylesheet" href="assets/bootstrap.min.css"> -->
+     <title>Blog api</title>  
 </head>
-<body>
-     
+<body> 
+
      <form class="form">
+
           <h1>BLOG API - LOGIN</h1>
+
           <label for="usuario">Usuario</label>
           <input type="text" class="form-control" name="usuario" id="usuario">
           
           <label for="Contraseña">Contraseña</label>
-          <input type="text" class="form-control" name="contrasena" id="contrasena">
+          <input type="password" class="form-control" name="contrasena" id="contrasena">
+
           <div class="input-w"> 
                <a href="#" id="registrate">+ Registrate</a>
                <input type="button" id="btn" value="Login">
           </div>
+          
      </form>
 
+
+     <script src="assets/jquery-3.3.1.js"></script> 
+     <script src="app/login.js"></script>
 </body>
 </html>

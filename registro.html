@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
      <meta charset="UTF-8">
-     <link rel="stylesheet" href="estilo/estilo.css">
+
+     <link rel="stylesheet" href="assets/estilo.css">
+     <script src="assets/jquery-3.3.1.js"></script>
+     <!-- <link rel="stylesheet" href="assets/bootstrap.min.css"> -->
      <title>Blog api</title>
 </head>
 <body>
@@ -10,22 +13,23 @@
           <h1>BLOG API - REGISTRATE</h1>
 
           <label for="usuario">Nombre</label>
-          <input type="text" class="form-control" name="Nombre" id="nombre">
+          <input type="text" class="form-control" name="Nombre" id="name">
           
           <label for="email">Email</label>
           <input type="text" class="form-control" name="email" id="email">
 
-          <label for="Contraseña">Contraseña</label>
-          <input type="text" class="form-control" name="contrasena" id="contrasena">
+          <label for="Contraseña">Password</label>
+          <input type="password" class="form-control" id="password">
+          
+          <label for="Password">Confirmar password</label>
+          <input type="password" class="form-control" id="password2">
 
-
-          <div class="input-w"> 
-              
-               <input type="button" id="btn2" value="Registrarse">
+          <div class="input-w">               
+               <input type="button" id="btn" value="Registrarse">
           </div>
      </form>
 
 <!-- Codigo de javascript -->     
-<script src="Scripts/app.js"></script>
+<script src="app/registrar.js"></script>
 </body>
 </html>

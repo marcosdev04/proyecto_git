@@ -46,4 +46,19 @@ label {
      height: 80px;
 }
 
+.imgviews,.lik,.comments{
+     margin-right: 20px
+}
 
+.prueba{
+     background-color: darkgoldenrod
+}
+
+.size{
+     width: 20px;
+     height: 20px
+}
+
+.openbutton{
+     margin-left: 30px
+}
