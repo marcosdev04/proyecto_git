@@ -3,33 +3,70 @@
 <head>
      <meta charset="UTF-8">
 
-     <link rel="stylesheet" href="assets/estilo.css">
-     <script src="assets/jquery-3.3.1.js"></script>
+     <!-- <link rel="stylesheet" href="assets/estilo.css"> -->
+     <link rel="stylesheet" href="assets/bootstrap.min.css">
+     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+ 
+     
      <!-- <link rel="stylesheet" href="assets/bootstrap.min.css"> -->
      <title>Blog api</title>
 </head>
 <body>
-     <form class="form">
-          <h1>BLOG API - REGISTRATE</h1>
-
-          <label for="usuario">Nombre</label>
-          <input type="text" class="form-control" name="Nombre" id="name">
-          
-          <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" id="email">
-
-          <label for="Contraseña">Password</label>
-          <input type="password" class="form-control" id="password">
-          
-          <label for="Password">Confirmar password</label>
-          <input type="password" class="form-control" id="password2">
-
-          <div class="input-w">               
-               <input type="button" id="btn" value="Registrarse">
+<br><br>
+     <main class="my-form">
+          <div class="cotainer">
+              <div class="row justify-content-center">
+                  <div class="col-md-8">
+                          <div class="card">
+                              <div class="card-header">Register</div>
+                              <div class="card-body">
+                                  <form name="my-form" onsubmit="return validform()" action="success.php" method="">
+                                      <div class="form-group row">
+                                          <label for="full_name" class="col-md-4 col-form-label text-md-right" id="name">Name</label>
+                                          <div class="col-md-6">
+                                              <input type="text" id="full_name" class="form-control" name="full-name">
+                                          </div>
+                                      </div>
+      
+                                      <div class="form-group row">
+                                          <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                          <div class="col-md-6">
+                                              <input type="text" id="email_address" class="form-control" name="email-address" id="email">
+                                          </div>
+                                      </div>
+      
+                                      <div class="form-group row">
+                                          <label for="user_name" class="col-md-4 col-form-label text-md-right">Password: </label>
+                                          <div class="col-md-6">
+                                              <input type="password" id="user_name" class="form-control" name="username"  id="password">
+                                          </div>
+                                      </div>
+      
+                                      <div class="form-group row">
+                                          <label for="phone_number" class="col-md-4 col-form-label text-md-right">Confirmar password</label>
+                                          <div class="col-md-6">
+                                              <input type="text" id="phone_number" class="form-control" id="password2">
+                                          </div>
+                                      </div>                                   
+      
+                                          <div class="col-md-6 offset-md-4">
+                                              <button type="submit" class="btn btn-primary">
+                                              Register
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                  </div>
+              </div>
           </div>
-     </form>
-
+      
+      </main>
 <!-- Codigo de javascript -->     
+<script src="assets/jquery-3.3.1.js"></script>
 <script src="app/registrar.js"></script>
+<script src="app/navbar.js"></script>
 </body>
 </html>
