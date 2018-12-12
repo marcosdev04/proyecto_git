@@ -1,10 +1,12 @@
+
 let idpostgeneral;
+
+let dato = JSON.parse(localStorage.getItem('Datos'));
+let token = dato.token;
 
 function cargarPosts(){
          
-     let dato = JSON.parse(localStorage.getItem('Datos'));
-     let token = dato.token;
-    
+   
      wsConnect(token);
     
      let Liposts =  document.querySelector('#postusers');
@@ -37,33 +39,12 @@ function cargarPosts(){
                </div>
                <div class="card-footer text-muted">
                     <span class="float-left"><a href="user_info.html" id="userinf" alt3="${userId}">${userEmail} | ${userName} </a>--- ${fecha = new Date(createdAt).toLocaleDateString()}</span>
-                    <span class="float-right"><span class="comments"><img src="assets/img/comments.png" class="size">${comments}</span><img src="assets/img/views.png" class="size"> <span class="imgviews">${views}</span><i class="${(liked) ? "fas fa-star" : "far fa-star"}"  id="articulo-like-${id}" alt="${(liked) ? 0 : 1}" alt2="${id}"></i>${likes}</span>
+                    <span class="float-right"><span class="comments"><i class="fas fa-comment"><span id="comment-${id}">${comments}</span></i></span><img src="assets/img/views.png" class="size"> <span class="imgviews" id="view-${id}">${views}</span><span><i class="${(liked) ? "fas fa-star" : "far fa-star"}" onclick="like(${id})" id="articulo-like-${id}" data-liked="${liked}"></i><span  id="likes-${id}">${likes}</span></span>
                </div>
           </div> <br>
           `;
         })
      }).catch(error => console.log('Se ha presentado el siguiente error: ',error));
-     
-}
-
-function actulikes(id,liked){
-     console.log(liked);
-     
-     let dato = JSON.parse(localStorage.getItem('Datos'));
-     let token = dato.token;
-
-     fetch(`http://68.183.27.173:8080/post/${id}/like`, {
-          method: (liked) ? 'PUT' : 'DELETE', // or 'PUT',         
-          headers:{
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        .then(function(e) {
-          // location.href="post_list.html";
-         
-        })
-        .catch(error => console.error('Error:', error));
      
 }
 
@@ -84,44 +65,32 @@ $(document).ready(function(){
                localStorage.setItem('userif',$(this).attr('alt3'));
           });
 
-         // DETECTAR EL LIKE Y DISLIKE DEL BOTON LIKE
-         //----------------------------------------------------
-         $(document).on('click','#articulo-like-'+idpostgeneral,function(e){
-    
-          var metodo = "";
-          var idpost = $(this).attr('alt2');
-
-          if($(this).attr('alt') == 0){
-               $(this).attr('alt','1');
-               $(this).removeClass("far fa-star");
-               $(this).addClass("fas fa-star");
-               metodo= "PUT";
-          }else{
-               $(this).attr('alt','0');
-               $(this).removeClass("fas fa-star");
-               $(this).addClass("far fa-star");
-               metodo= "DELETE";
-          }  
-          
-          let dato = JSON.parse(localStorage.getItem('Datos'));
-          let token = dato.token;
-
-          fetch(`http://68.183.27.173:8080/post/${idpost}/like`, {
-               method: metodo, // or 'PUT',         
-               headers:{
-               'Content-Type': 'application/json',
-               'Authorization': `Bearer ${token}`
-               }
-          })
-          .then(function(e) {
-               
-          }).catch(error => console.error('Error:', error));       
-     });
-
      }else{
           location.href="login.html";
      }
       
 });
 
+
+function like(id){
+
+
+     var liked = $(`#articulo-like-${id}`).data("liked");
+    
+     console.log(liked);
+
+
+     fetch(`http://68.183.27.173:8080/post/${id}/like`, {
+          method: liked ? 'DELETE' : 'PUT', // or 'PUT',         
+          headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+          }
+     })
+     .then(function(e) {
+          $(`#articulo-like-${id}`).removeClass(liked ? 'fas': 'far').addClass(liked ? 'far': 'fas');
+          $(`#articulo-like-${id}`).data("liked", !liked);
+           
+     }).catch(error => console.error('Error:', error));       
+}
 

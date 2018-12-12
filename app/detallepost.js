@@ -1,4 +1,4 @@
-let idpost2=0;
+let idpost2;
  
 let dato = JSON.parse(localStorage.getItem('Datos'));
 let token = dato.token;
@@ -6,6 +6,7 @@ let token = dato.token;
 
 function cargarPosts(){
      
+     wsConnect(token);
     
      let Liposts =  document.querySelector('#dt_post');
      Liposts.innerHTML="";
@@ -40,18 +41,18 @@ function cargarPosts(){
                </div>
                <div class="card-footer text-muted">
                     <span class="float-left"><a href="user_info.html">${userEmail} | ${userName} </a>--- ${fecha = new Date(createdAt).toLocaleDateString()}</span>
-                    <span class="float-right"><span class="comments"><i class="far fa-comment-alt">${comments}</i></span><img src="assets/img/views.png" class="size"> <span class="imgviews">${views}</span><i class="${(liked) ? "fas fa-star" : "far fa-star"} btn btn-outline-warning"  id="like_button" alt="${(liked) ? 0 : 1}" alt2="${id}"></i>${likes}</span>
+                    <span class="float-right"><span class="comments"><i class="far fa-comment-alt"><span id="comment-${id}">${comments}</span></i></span><img src="assets/img/views.png" class="size"> <span class="imgviews" id="view-${id}">${views}</span><span><i class="${(liked) ? "fas fa-star" : "far fa-star"}" onclick="like(${id})" id="articulo-like-${id}" data-liked="${liked}"></i><span  id="likes-${id}">${likes}</span></span>
                </div>
           </div> <br>
           <div class="card">
                <h5 class="card-header">Agregar comentario</h5>
                <div class="card-body">
                     <div class="col-12">
-                         <input type="text" id=" id="newcomment" class="form-control" placeholder="agregar su comentario aqui." required></input>
+                         <input type="text" id="newcomment" class="form-control" placeholder="agregar su comentario aqui." required></input>
                     </div>
                
                </div>
-               <a href="#" id="btncomment" class="btn btn-primary">Agregar comentario</a>
+               <input typ="button" id="btncomment" class="btn btn-primary" value="Agregar comentario">
           </div>  
           `;
 
@@ -112,39 +113,39 @@ function cargarComentarios(){
 $(document).ready(function(){
      cargarPosts();
      cargarComentarios();
-     $(document).on('click','#like_button',function(e){
+     // $(document).on('click','#like_button',function(e){
     
-     var metodo = "";
-     var idpost = $(this).attr('alt2');
+     // var metodo = "";
+     // var idpost = $(this).attr('alt2');
 
-          if($(this).attr('alt') == 0){
-               $(this).attr('alt','1');
-               $(this).removeClass("far fa-star");
-               $(this).addClass("fas fa-star");
-               metodo= "PUT";
-          }else{
-               $(this).attr('alt','0');
-               $(this).removeClass("fas fa-star");
-               $(this).addClass("far fa-star");
-               metodo= "DELETE";
-          }  
+     //      if($(this).attr('alt') == 0){
+     //           $(this).attr('alt','1');
+     //           $(this).removeClass("far fa-star");
+     //           $(this).addClass("fas fa-star");
+     //           metodo= "PUT";
+     //      }else{
+     //           $(this).attr('alt','0');
+     //           $(this).removeClass("fas fa-star");
+     //           $(this).addClass("far fa-star");
+     //           metodo= "DELETE";
+     //      }  
           
-          let dato = JSON.parse(localStorage.getItem('Datos'));
-          let token = dato.token;
+     //      let dato = JSON.parse(localStorage.getItem('Datos'));
+     //      let token = dato.token;
 
-          fetch(`http://68.183.27.173:8080/post/${idpost}/like`, {
-               method: metodo, // or 'PUT',         
-               headers:{
-               'Content-Type': 'application/json',
-               'Authorization': `Bearer ${token}`
-               }
-          })
-          .then(function(e) {
-               // location.href="post_list.html";
+     //      fetch(`http://68.183.27.173:8080/post/${idpost}/like`, {
+     //           method: metodo, // or 'PUT',         
+     //           headers:{
+     //           'Content-Type': 'application/json',
+     //           'Authorization': `Bearer ${token}`
+     //           }
+     //      })
+     //      .then(function(e) {
+     //           // location.href="post_list.html";
           
-          })
-          .catch(error => console.error('Error:', error));
-      });
+     //      })
+     //      .catch(error => console.error('Error:', error));
+     //  });
 
       // BOTON COMENTAR
 
@@ -167,15 +168,33 @@ $(document).ready(function(){
           }).then(res => res.json())
           .then(response =>{
                cargarComentarios();
-
           }).catch(error => console.log('Se ha presentado el siguiente error: ',error));
-              
-         
-
-
 
       });
 
 });
 
+
+
+function like(id){
+
+
+     var liked = $(`#articulo-like-${id}`).data("liked");
+    
+     console.log(liked);
+
+
+     fetch(`http://68.183.27.173:8080/post/${id}/like`, {
+          method: liked ? 'DELETE' : 'PUT', // or 'PUT',         
+          headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+          }
+     })
+     .then(function(e) {
+          $(`#articulo-like-${id}`).removeClass(liked ? 'fas': 'far').addClass(liked ? 'far': 'fas');
+          $(`#articulo-like-${id}`).data("liked", !liked);
+           
+     }).catch(error => console.error('Error:', error));       
+}
 
