@@ -61,9 +61,6 @@ function cargarPosts(){
      
 }
 
-
-
-
 function cargarComentarios(){
        
      let Liposts =  document.querySelector('#comentarios');
@@ -88,8 +85,7 @@ function cargarComentarios(){
                 id,
                 postId,
                 userEmail,userId,userName}=comen;
-                 
-                 
+                                  
                Liposts.innerHTML +=`
                <div class="card">
                     <div class="card-header">
@@ -113,39 +109,6 @@ function cargarComentarios(){
 $(document).ready(function(){
      cargarPosts();
      cargarComentarios();
-     // $(document).on('click','#like_button',function(e){
-    
-     // var metodo = "";
-     // var idpost = $(this).attr('alt2');
-
-     //      if($(this).attr('alt') == 0){
-     //           $(this).attr('alt','1');
-     //           $(this).removeClass("far fa-star");
-     //           $(this).addClass("fas fa-star");
-     //           metodo= "PUT";
-     //      }else{
-     //           $(this).attr('alt','0');
-     //           $(this).removeClass("fas fa-star");
-     //           $(this).addClass("far fa-star");
-     //           metodo= "DELETE";
-     //      }  
-          
-     //      let dato = JSON.parse(localStorage.getItem('Datos'));
-     //      let token = dato.token;
-
-     //      fetch(`http://68.183.27.173:8080/post/${idpost}/like`, {
-     //           method: metodo, // or 'PUT',         
-     //           headers:{
-     //           'Content-Type': 'application/json',
-     //           'Authorization': `Bearer ${token}`
-     //           }
-     //      })
-     //      .then(function(e) {
-     //           // location.href="post_list.html";
-          
-     //      })
-     //      .catch(error => console.error('Error:', error));
-     //  });
 
       // BOTON COMENTAR
 
